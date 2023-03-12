@@ -1,0 +1,304 @@
+package org.apache.jsp;
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+import javax.servlet.jsp.*;
+
+public final class New_005fInvoice_jsp extends org.apache.jasper.runtime.HttpJspBase
+    implements org.apache.jasper.runtime.JspSourceDependent {
+
+  private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
+
+  private static java.util.List<String> _jspx_dependants;
+
+  static {
+    _jspx_dependants = new java.util.ArrayList<String>(2);
+    _jspx_dependants.add("/Header.jsp");
+    _jspx_dependants.add("/Footer.jsp");
+  }
+
+  private org.glassfish.jsp.api.ResourceInjector _jspx_resourceInjector;
+
+  public java.util.List<String> getDependants() {
+    return _jspx_dependants;
+  }
+
+  public void _jspService(HttpServletRequest request, HttpServletResponse response)
+        throws java.io.IOException, ServletException {
+
+    PageContext pageContext = null;
+    HttpSession session = null;
+    ServletContext application = null;
+    ServletConfig config = null;
+    JspWriter out = null;
+    Object page = this;
+    JspWriter _jspx_out = null;
+    PageContext _jspx_page_context = null;
+
+    try {
+      response.setContentType("text/html");
+      pageContext = _jspxFactory.getPageContext(this, request, response,
+      			null, true, 8192, true);
+      _jspx_page_context = pageContext;
+      application = pageContext.getServletContext();
+      config = pageContext.getServletConfig();
+      session = pageContext.getSession();
+      out = pageContext.getOut();
+      _jspx_out = out;
+      _jspx_resourceInjector = (org.glassfish.jsp.api.ResourceInjector) application.getAttribute("com.sun.appserv.jsp.resource.injector");
+
+      out.write("\n");
+      out.write("\n");
+      out.write("    \n");
+      out.write("        <!DOCTYPE html>\n");
+      out.write("        <html>\n");
+      out.write("\n");
+      out.write("        <head>\n");
+      out.write("            <meta http-equiv =\"Content-Type\" content=\"text/html; charset=UTF-8\">\n");
+      out.write("            <title>hello</title>\n");
+      out.write("            <link href=\"css/bootstrap.min.css\" rel=\"stylesheet\">\n");
+      out.write("            <script src=\"js/jquery.min.js\"></script>\n");
+      out.write("            <script src=\"js/bootstrap.min.js\"></script>\n");
+      out.write("        </head>\n");
+      out.write("\n");
+      out.write("        <body>\n");
+      out.write("            <div class=\"container\">\n");
+      out.write("                <div class=\"navbar navbar-inverse\">\n");
+      out.write("                    <ul class=\"nav navbar-nav\">\n");
+      out.write("                        <li><a href=\"#\">Invoice System</a></li>\n");
+      out.write("                    </ul>\n");
+      out.write("                </div>\n");
+      out.write("            </div>\n");
+      out.write("            <div class=\"container\">\n");
+      out.write("                <div class=\"row\">\n");
+      out.write("                    <div class=\"col-md-3\">\n");
+      out.write("                        <ul class=\"list-group\">\n");
+      out.write("                            <li class=\"list-group-item\"><a href=\"Dashbord.jsp\">Dashboard</a></li>\n");
+      out.write("                            <li class=\"list-group-item\"><a href=\"Customer.jsp\">Customer</a></li>\n");
+      out.write("                            <li class=\"list-group-item\"><a href=\"Item.jsp\">Item</a></li>\n");
+      out.write("                            <li class=\"list-group-item\"><a href=\"Invoice.jsp\">Invoice</a></li>\n");
+      out.write("                            <li class=\"list-group-item\"><a href=\"Reports.jsp\">Report</a></li>\n");
+      out.write("                        </ul>\n");
+      out.write("                    </div>\n");
+      out.write("                    <div class=\"col-md-9\">\n");
+      out.write("                        <div style=\"height:650px;width: 100%;\">");
+      out.write("\n");
+      out.write("<script>\n");
+      out.write("    let tblarray = [];\n");
+      out.write("    let ttl = 0;\n");
+      out.write("    let itemname = \"\";\n");
+      out.write("    $(document).ready(function () {\n");
+      out.write("        dropdownCust();\n");
+      out.write("        dropdownItem();\n");
+      out.write("        $(\"#quantity\").keyup(function () {\n");
+      out.write("            $(\"#quantity\").empty();\n");
+      out.write("            getTotal();\n");
+      out.write("        })\n");
+      out.write("        $(\"#add\").click(function () {\n");
+      out.write("            addItemToTbl();\n");
+      out.write("        })\n");
+      out.write("        $(\"#submit\").click(function () {\n");
+      out.write("            addToDatabase();\n");
+      out.write("        })\n");
+      out.write("    })\n");
+      out.write("    function addToDatabase() {\n");
+      out.write("        let invoice_items = [];\n");
+      out.write("        $.each(tblarray, function (i, d) {\n");
+      out.write("//                console.log(Number(d.item_id));\n");
+      out.write("            invoice_items.push({\"quantity\": d.quantity, \"items\": {\"item_id\": Number(d.item_id)}});\n");
+      out.write("        })\n");
+      out.write("//            console.log(invoice_items)\n");
+      out.write("        let date = $(\"#invoice_date\").val();\n");
+      out.write("        console.log(invoice_items);\n");
+      out.write("        var st = {\"invoice_date\": date, \"total_ammount\": ttl, \"customer\": {\"customer_id\": $(\"#customer\").val()}, \"invoice_item\": invoice_items};\n");
+      out.write("        console.log(st);\n");
+      out.write("        $.ajax({\n");
+      out.write("            url: 'http://localhost:9090/api/invoice_details',\n");
+      out.write("            method: 'post',\n");
+      out.write("            data: JSON.stringify(st),\n");
+      out.write("            contentType: 'application/json',\n");
+      out.write("            success: function (resp) {\n");
+      out.write("                alert(resp);\n");
+      out.write("                window.location.href = \"Invoice.jsp\";\n");
+      out.write("            }\n");
+      out.write("        })\n");
+      out.write("    }\n");
+      out.write("    function getTotal() {\n");
+      out.write("        let quan = Number($(\"#quantity\").val());\n");
+      out.write("        let stock = Number($(\"#stock\").val());\n");
+      out.write("        if (quan > stock) {\n");
+      out.write("            document.getElementById(\"alert\").style.display = \"block\";\n");
+      out.write("\n");
+      out.write("            $(\"#alert\").html(\"<span class='text-warning'>Only \" + stock + \" items available</span>\")\n");
+      out.write("            $(\"#add\").prop('disabled', true);\n");
+      out.write("        } else {\n");
+      out.write("            document.getElementById(\"alert\").style.display = \"none\";\n");
+      out.write("            let rate = $(\"#rate\").val();\n");
+      out.write("            let tax = $(\"#tax\").val();\n");
+      out.write("            let totaltax = ((rate * quan) / 100) * tax;\n");
+      out.write("            let ammount = (rate * quan) + totaltax;\n");
+      out.write("            $(\"#total\").val(ammount);\n");
+      out.write("            if (ammount > 0) {\n");
+      out.write("                $(\"#add\").prop('disabled', false);\n");
+      out.write("            } else {\n");
+      out.write("                $(\"#add\").prop('disabled', true);\n");
+      out.write("            }\n");
+      out.write("        }\n");
+      out.write("    }\n");
+      out.write("    function addItemToTbl() {\n");
+      out.write("        tblarray.push({\"item_id\": $(\"#item\").val(), \"item\": itemname, \"rate\": $(\"#rate\").val(), \"tax\": $(\"#tax\").val(), \"quantity\": $(\"#quantity\").val(), \"total\": $(\"#total\").val()});\n");
+      out.write("        $(\"#tbldata\").empty();\n");
+      out.write("        ttl = 0;\n");
+      out.write("        $.each(tblarray, function (i, d) {\n");
+      out.write("\n");
+      out.write("            $(\"#tbldata\").append(\"<tr><td>\" + (++i) + \"</td><td>\" + d.item + \"</td><td>\" + d.rate + \"</td><td>\" + d.tax + \"</td><td>\" + d.quantity + \"</td><td>\" + d.total + \"</td></tr>\");\n");
+      out.write("            ttl += Number(d.total);\n");
+      out.write("        })\n");
+      out.write("        $(\"#tbldata\").append(\"<tr><td colspan='5'><span class='col-md-offset-11'>Total</span></td><td>\" + ttl + \"</td></tr>\");\n");
+      out.write("        $(\"#item\").val(\"Select Item\");\n");
+      out.write("        $(\"#rate\").val(\"\");\n");
+      out.write("        $(\"#tax\").val(\"\");\n");
+      out.write("        $(\"#quantity\").val(\"\");\n");
+      out.write("        $(\"#total\").val(\"\");\n");
+      out.write("        $(\"#stock\").val(\"\");\n");
+      out.write("        $(\"#add\").prop('disabled', true)\n");
+      out.write("    }\n");
+      out.write("    function dropdownCust() {\n");
+      out.write("        $.ajax({\n");
+      out.write("            url: 'http://localhost:9090/api/customer',\n");
+      out.write("            method: 'get',\n");
+      out.write("            contentType: 'application/json',\n");
+      out.write("            success: function (resp) {\n");
+      out.write("                $(\"#customer\").empty();\n");
+      out.write("                $(\"#customer\").append(\"<option disabled selected>Select Customer</option>\");\n");
+      out.write("                $.each(resp, function (i, d) {\n");
+      out.write("                    $(\"#customer\").append(\"<option value='\" + d.customer_id + \"'>\" + d.customer_name + \"</option>\");\n");
+      out.write("                })\n");
+      out.write("            }\n");
+      out.write("        })\n");
+      out.write("    }\n");
+      out.write("    function itemDetails() {\n");
+      out.write("        let id = $(\"#item\").val();\n");
+      out.write("        console.log(\"sagar\")\n");
+      out.write("        $.ajax({\n");
+      out.write("            url: 'http://localhost:9090/api/itembyid?id=' + id,\n");
+      out.write("            method: 'get',\n");
+      out.write("            contentType: 'application/json',\n");
+      out.write("            success: function (resp) {\n");
+      out.write("                $(\"#quantity\").empty();\n");
+      out.write("                $(\"#total\").empty();\n");
+      out.write("                itemname = resp.item_name;\n");
+      out.write("                $(\"#rate\").val(resp.selling_range);\n");
+      out.write("                $(\"#tax\").val(resp.tax);\n");
+      out.write("                $(\"#quantity\").val(0);\n");
+      out.write("                $(\"#total\").val(0);\n");
+      out.write("                $(\"#stock\").val(resp.stock_quantity);\n");
+      out.write("            }\n");
+      out.write("        })\n");
+      out.write("    }\n");
+      out.write("    function dropdownItem() {\n");
+      out.write("        $.ajax({\n");
+      out.write("            url: 'http://localhost:9090/api/item',\n");
+      out.write("            method: 'get',\n");
+      out.write("            contentType: 'application/json',\n");
+      out.write("            success: function (resp) {\n");
+      out.write("                $(\"#item\").empty();\n");
+      out.write("                $(\"#item\").append(\"<option disabled selected>Select Item</option>\");\n");
+      out.write("                $.each(resp, function (i, d) {\n");
+      out.write("                    $(\"#item\").append(\"<option value=\" + d.item_id + \">\" + d.item_name + \"</option>\");\n");
+      out.write("                })\n");
+      out.write("            }\n");
+      out.write("        })\n");
+      out.write("    }\n");
+      out.write("</script>\n");
+      out.write("<a href=\"Invoice.jsp\">All Invoices</a>\n");
+      out.write("\n");
+      out.write("<div class=\"panel panel-info\">\n");
+      out.write("    <div class=\"panel-heading\">\n");
+      out.write("        <h2 class=\"text-center\">Invoice</h2>\n");
+      out.write("    </div>\n");
+      out.write("    <div class=\"panel-body\">\n");
+      out.write("        <div class=\"col-md-6\">\n");
+      out.write("            <label for=\"\">Customer</label>\n");
+      out.write("            <select class=\"form-control\" id=\"customer\">\n");
+      out.write("                <option>Select Customer</option>\n");
+      out.write("            </select>\n");
+      out.write("        </div>\n");
+      out.write("        <div class=\"col-md-6\">\n");
+      out.write("            <label for=\"\">Invoice Date</label>\n");
+      out.write("            <input type=\"date\" id=\"invoice_date\" class=\"form-control\">\n");
+      out.write("        </div>\n");
+      out.write("        <table style=\"margin-top:80px;\">\n");
+      out.write("            <tr>\n");
+      out.write("                <td><label for=\"\">Item</label></td>\n");
+      out.write("                <td><label for=\"\">Rate</label></td>\n");
+      out.write("                <td><label for=\"\" style=\"margin: 0px 5px;\">Tax</label></td>\n");
+      out.write("                <td><label for=\"\" style=\"margin: 0px 10px;\">Stock</label></td>\n");
+      out.write("                <td><label for=\"\" style=\"margin: 0px 15px;\">Quantity</label></td>\n");
+      out.write("                <td><label for=\"\" style=\"margin: 0px 20px;\">Total</label></td>\n");
+      out.write("                <td><label for=\"\"> </label></td>\n");
+      out.write("\n");
+      out.write("            </tr>\n");
+      out.write("            <tr>\n");
+      out.write("                <td class=\"col-md-3\"><select class=\"form-control\" id=\"item\" onchange=\"itemDetails()\">\n");
+      out.write("                        <option>Select Item</option>\n");
+      out.write("                    </Select></td>\n");
+      out.write("            <div class=\"col-md-9\" style=\"border-radius:border-box;\">\n");
+      out.write("                <td><input type=\"text\" id=\"rate\" class=\"form-control\" disabled></td>\n");
+      out.write("                <td><input type=\"text\" id=\"tax\" class=\"form-control\" style=\"margin: 0px 5px;\" disabled></td>\n");
+      out.write("                <td><input type=\"text\" id=\"stock\" class=\"form-control\" style=\"margin: 0px 10px;\" disabled></td>\n");
+      out.write("                <td><input type=\"text\" id=\"quantity\" class=\"form-control\" style=\"margin: 0px 15px;\"></td>\n");
+      out.write("                <td><input type=\"text\" id=\"total\" class=\"form-control\" style=\"margin: 0px 20px;\"></td>\n");
+      out.write("                <td class=\"col-md-1\"><input type=\"button\" id=\"add\" class=\"form-control btn btn-success\"\n");
+      out.write("                                            value=\"+\" style=\"margin-left:10px;\" disabled></td>\n");
+      out.write("            </div>\n");
+      out.write("            </tr>\n");
+      out.write("        </table>\n");
+      out.write("        <div id=\"alert\"></div>\n");
+      out.write("        <hr>\n");
+      out.write("        <table class=\"table table-bordered table-condensed\" style=\"margin-top:20px;\">\n");
+      out.write("            <thead>\n");
+      out.write("                <tr>\n");
+      out.write("                    <td>Sr no</td>\n");
+      out.write("                    <td>Item</td>\n");
+      out.write("                    <td>Rate</td>\n");
+      out.write("                    <td>Tax</td>\n");
+      out.write("                    <td>Quantity</td>\n");
+      out.write("                    <td>Total</td>\n");
+      out.write("                </tr>\n");
+      out.write("            </thead>\n");
+      out.write("            <tbody id=\"tbldata\">\n");
+      out.write("\n");
+      out.write("            </tbody>\n");
+      out.write("        </table>\n");
+      out.write("    </div>\n");
+      out.write("    <div class=\"panel-footer\">\n");
+      out.write("        <input type=\"button\" value=\"Submit\" id=\"submit\" class=\"btn btn-primary\">\n");
+      out.write("    </div>\n");
+      out.write("</div>\n");
+      out.write("</div>\n");
+      out.write("<hr>\n");
+      out.write("<div>\n");
+      out.write("    @copyright<a href=\"https://www.ciitinstitute.com\">ciit training institute</a>\n");
+      out.write("</div>\n");
+      out.write("                </div>\n");
+      out.write("            </div>\n");
+      out.write("        </div>\n");
+      out.write("    \n");
+      out.write("\n");
+      out.write("</body>\n");
+      out.write("</html>\n");
+      out.write('\n');
+    } catch (Throwable t) {
+      if (!(t instanceof SkipPageException)){
+        out = _jspx_out;
+        if (out != null && out.getBufferSize() != 0)
+          out.clearBuffer();
+        if (_jspx_page_context != null) _jspx_page_context.handlePageException(t);
+        else throw new ServletException(t);
+      }
+    } finally {
+      _jspxFactory.releasePageContext(_jspx_page_context);
+    }
+  }
+}
